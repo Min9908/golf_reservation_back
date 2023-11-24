@@ -35,7 +35,7 @@ def check_and_delete_reservations():
             # 로그인 진행 시간을 08:59:30로 지정
             # 테스트 시에는 and 이후 제거
             # (current_datetime.day == selectedDay.day and current_datetime.hour == 8 and current_datetime.minute == 59 and current_datetime.second >= 30)  or (current_datetime.day == selectedDay.day and current_datetime.hour == 9 and current_datetime.minute <= 1)
-            if(current_datetime.day == selectedDay.day and current_datetime.hour == 9 and current_datetime.minute <= 1) or (current_datetime.day == selectedDay.day and current_datetime.hour == 8 and current_datetime.minute == 59 and current_datetime.second <= 59) or (current_datetime.day == selectedDay.day and current_datetime.hour == 10 and current_datetime.minute <= 1) or (current_datetime.day == selectedDay.day and current_datetime.hour == 9 and current_datetime.minute == 59 and current_datetime.second <= 59):
+            if(current_datetime.day == selectedDay.day and current_datetime.hour == 9 and current_datetime.minute <= 1) or (current_datetime.day == selectedDay.day and current_datetime.hour == 8 and current_datetime.minute == 59 and current_datetime.second <= 59) or (current_datetime.day == selectedDay.day and current_datetime.hour == 10 ) or (current_datetime.day == selectedDay.day and current_datetime.hour == 9 and current_datetime.minute == 59 and current_datetime.second <= 59):
                 print('메크로 시작')
                 # 매크로 실행(로그인)
                 cookies, elapsed_time = login_test.login_test(
@@ -50,7 +50,7 @@ def check_and_delete_reservations():
                 return str(elapsed_time), 200
 
     except Exception as e:
-        if (current_datetime.day == selectedDay.day and current_datetime.hour == 10 and current_datetime.minute == 1):
+        if (current_datetime.day == selectedDay.day and current_datetime.hour == 10 and current_datetime.minute == 0):
             print(current_datetime.hour)
             print(current_datetime.minute)
             delete_reservation_data(row[0])
@@ -240,13 +240,15 @@ scheduler = BackgroundScheduler(daemon=True)
 #         if set_date_time.minute == 42:
 #             break
 scheduler.add_job(check_and_delete_reservations,
-                   trigger='cron', hour='*', minute='59', second='56') # 09:00:00 - 09:00:20
+                   'cron', hour='*', second='52') # 09:00:00 - 09:00:20
 scheduler.add_job(check_and_delete_reservations,
-                   trigger='cron', hour='*', minute='0', second='25') # 09:00:20 - 09:00:40
-scheduler.add_job(check_and_delete_reservations,
-                  trigger='cron', hour='*', minute='0', second='55') # 09:00:40 - 09:01:00
-scheduler.add_job(check_and_delete_reservations,
-                   trigger='cron', hour='*', minute='1', second='25') # 09:01:00 - 09:01:20
+                   trigger='cron', hour='*', minute='0', second='8') # 09:00:20 - 09:00:40
+# scheduler.add_job(check_and_delete_reservations,
+#                   trigger='cron', hour='*', minute='0', second='10') # 09:00:40 - 09:01:00
+# scheduler.add_job(check_and_delete_reservations,    
+#                    trigger='cron', hour='*', minute='1', second='25') # 09:01:00 - 09:01:20
+
+                   
 scheduler.start()
 # scheduler.remove_all_jobs()
 # check_and_delete_reservations()

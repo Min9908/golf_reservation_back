@@ -25,7 +25,6 @@ def wait_until_9_am():
 
 
 def login_test(url, id, pw, selectedDay, nextFuture, futureTime, personnel, tid, order):
-    # 08:59:30에 로그인 매크로 실행됨.
 
     options = Options()  # 크롬 드라이버 자동 설치 적용됨. 최신 버전으로 항상 호환성 유지됨
     options.add_argument('--disable-gpu')  # Disable GPU acceleration
@@ -33,7 +32,7 @@ def login_test(url, id, pw, selectedDay, nextFuture, futureTime, personnel, tid,
     options.add_argument('--disable-extensions')  # Disable extensions
     # Disable shared memory usage
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--start-fullscreen')  # 전체화면
+    options.add_argument('--start-fullscreen')  # 전체화면  
 
     # driver = webdriver.Chrome(ChromeDriverManager().install())
     driver = webdriver.Chrome(options=options, service=Service(ChromeDriverManager().install()))

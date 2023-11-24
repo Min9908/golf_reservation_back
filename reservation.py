@@ -171,21 +171,23 @@ def reservation_test(driver, target_day, elements, target_month, futureTime, per
                                     print('find matched value!')
                                     reservation_btn = tr.find_elements(
                                         By.TAG_NAME, "button")[0]
-
                                     course = tr.find_element(
                                         By.CLASS_NAME, "bk_cours").text
                                     print('course: ' + course)
                                     reservation_btn.click()
+                                    print("예약버튼 클릭했나..")
 
                                     # 인원 수 체크
                                     radio_element = WebDriverWait(driver, 5).until(
                                         EC.element_to_be_clickable((By.XPATH, '//*[@id="form-create"]/div[6]/div')))
                                     print(radio_element)
                                     if personnel == '3':
+                                        print("예약 페이지에 접속했나?..")
                                         cnt3 = radio_element.find_element(
                                             By.XPATH, '//*[@id="form-create"]/div[6]/div/label[1]')
                                         cnt3.click()
                                     else:
+                                        print("예약 페이지에 접속했나?..")
                                         cnt4 = radio_element.find_element(
                                             By.XPATH, '//*[@id="form-create"]/div[6]/div/label[2]')
                                         cnt4.click()
@@ -198,7 +200,7 @@ def reservation_test(driver, target_day, elements, target_month, futureTime, per
                                     try:
                                         alert1 = WebDriverWait(driver, 5).until(
                                             EC.alert_is_present())
-
+                                        print("모달창이 나왔나?")
                                         alert1.accept()
                                         print("모달창 확인 버튼 클릭 완료!")
 
@@ -235,6 +237,7 @@ def reservation_test(driver, target_day, elements, target_month, futureTime, per
                                         #         'exception 테스트-------------------')
                                         #     return
                                         print(error)
+                                        print("여기서 오류 발생하면 TRY도 못해보는거")
                                         insert_result_log(
                                             selectedDay, personnel, nextFuture, futureTime, '실패', 'X', 'X')
                                         driver.close()
